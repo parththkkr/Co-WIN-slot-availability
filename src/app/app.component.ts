@@ -105,7 +105,7 @@ ngOnInit(): void {
                 // console.log(this.min_age_limit);
                 // console.warn(session.min_age_limit==this.min_age_limit);
                 // console.warn((session.available_capacity > 0));
-                if ((session.available_capacity > 0) && (session.vaccine === this.vaccine) && (session.min_age_limit === this.min_age)) {
+                if ((session.available_capacity > 0) && (session.vaccine === this.vaccine) && (session.min_age_limit === this.min_age)&&(session.date===this.date)) {
                   console.log("slot available")
 
                   this.available = true;
