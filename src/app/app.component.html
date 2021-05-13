@@ -1,0 +1,144 @@
+<div>
+  <div class="d-flex justify-content-center" style="background-color: #6c757d;">
+    <h1 style="color: rgb(250, 250, 250);">CoWIN Vaccine Availability</h1>
+  </div>
+  <br>
+  <div class="container" style="height:0.2%;">
+    <div class="row" style="height:0.2%;">
+      <div class="col-8" align="left">
+        Total number of hit: <button class="btn btn-dark" disabled><b>{{count}}</b></button>
+      </div>
+      <div class="col" align="right">
+        <button class="btn btn-outline-secondary  btn-sm" (click)="info()">Information</button>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <br>
+  <div class="d-flex justify-content-center">
+    <form #form="ngForm" (ngSubmit)="checkSlot(form.value)"  >
+
+      <div class="input-group input-group-lg" class="d-flex justify-content-center">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-lg">PinCode</span>
+        </div>&nbsp;&nbsp;&nbsp;
+        <input type="text" name="pincode" ngModel #pincode="ngModel" required>
+      </div>
+      <div class="d-flex justify-content-center">
+        <span style="color: red;" *ngIf="pincode.invalid&&pincode.touched">*<small style="color: blue;">Pincode
+            Required</small></span>
+      </div>
+      <br>
+      <div class="input-group input-group-lg" class="d-flex justify-content-center">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-lg">Date</span>
+        </div>&nbsp;&nbsp;&nbsp;
+        <input type="date" name="date" #date="ngModel" ngModel required>
+      </div>
+      <div class="d-flex justify-content-center">
+        <span style="color: red;" *ngIf="date.invalid&&date.touched">*<small style="color: blue;">Date
+            Required</small></span>
+      </div>
+      <br>
+
+
+      <div class="input-group input-group-lg" class="d-flex justify-content-center">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-lg">Vaccine Type</span>
+        </div>
+        &nbsp;&nbsp;&nbsp;
+
+        <div class="form-check">
+          <input class="form-check-input " type="radio" name="vaccine" value="COVISHIELD" id="COVISHIELD"
+            [(ngModel)]="vaccine">
+          <label class="form-check-label" for="COVISHIELD">
+            COVISHIELD
+          </label>
+        </div>
+        &nbsp;
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="vaccine" value="COVAXIN" id="COVAXIN" checked
+            [(ngModel)]="vaccine">
+          <label class="form-check-label" for="COVAXIN">
+            COVAXIN
+          </label>
+        </div>
+      </div>
+
+      <br>
+      <div class="input-group input-group-lg" class="d-flex justify-content-center">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-lg">Age</span>
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="min_age_limit" value=18 id="18" checked
+            [(ngModel)]="min_age_limit">
+          <label class="form-check-label" for="18">
+            18+
+          </label>
+        </div>
+        &nbsp;
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="min_age_limit" value=45 id="45"
+            [(ngModel)]="min_age_limit">
+          <label class="form-check-label" for="45">
+            45+
+          </label>
+        </div>
+      </div>
+
+
+      <br>
+
+
+
+
+      <div class="input-group input-group-lg" class="d-flex justify-content-center">
+        <div class="input-group-prepend" class="d-flex justify-content-center">
+          <span class="input-group-text" id="inputGroup-sizing-lg">Interval In Second</span>
+        </div>&nbsp;&nbsp;&nbsp;
+        <input type="text" name="intervalTime" [(ngModel)]="intervalTime" class="d-flex justify-content-center">
+
+      </div>
+      <div class="d-flex justify-content-center">
+        <span style="color: red;">*<small style="color: blue;"> Fetching slot in every <font
+              style="color: black;font-style: italic;"><b>{{intervalTime}}</b></font>
+            seconds<sub style="color: black;font-size: 3mm;">(*Min time interval=10 seconds) </sub></small></span>
+      </div>
+
+      <hr>
+      <div class="d-flex justify-content-center">
+        <input type="submit" value="Run Slot Checker" class="btn btn-secondary" [disabled]="form.invalid"
+          *ngIf="submitted">&nbsp;&nbsp;
+      </div>
+
+    </form>
+  </div>
+  <br>
+
+  <div class="d-flex justify-content-center">
+    <button (click)="stopChecking()" class="btn btn-secondary">Stop Fetching</button>
+  </div>
+</div>
+<hr *ngIf="showtable==true">
+
+<div style="clear: left;">
+  <table class="table" *ngIf="showtable==true">
+    <thead>
+      <tr>
+        <th scope="col">Center ID</th>
+        <th scope="col">Center Name</th>
+        <th scope="col">Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of data">
+        <td>{{i.center_id}}</td>
+        <td>{{i.name}}</td>
+        <td>{{i.address}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
