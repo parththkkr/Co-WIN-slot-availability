@@ -166,7 +166,7 @@ ngOnInit(): void {
 
   playAudio(){
 
-  this.audio.src = "../assets/beep.mp3";
+  this.audio.src = "beep.mp3";
   this.audio.load();
   this.audio.play();
   }
