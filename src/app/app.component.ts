@@ -33,6 +33,7 @@ export class AppComponent {
   available: boolean = false;
   audio = new Audio();
   submitted: boolean = true;
+  aud = new AudioContext();
 
 
 ngOnInit(): void {
@@ -166,9 +167,18 @@ ngOnInit(): void {
 
   playAudio(){
 
-  this.audio.src = "beep.mp3";
-  this.audio.load();
-  this.audio.play();
+  // this.audio.src = "beep.mp3";
+  // this.audio.load();
+  // this.audio.play();
+    const v = this.aud.createOscillator();
+    const u = this.aud.createGain();
+    v.connect(u);
+    v.frequency.value = 520;
+    v.type = "square";
+    u.connect(this.aud.destination);
+    u.gain.value = 100 * 0.01;
+    v.start(this.aud.currentTime);
+    v.stop(this.aud.currentTime + 300 * 0.01);
   }
   info()
   {
