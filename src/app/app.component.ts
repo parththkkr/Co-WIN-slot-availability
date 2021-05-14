@@ -77,9 +77,10 @@ ngOnInit(): void {
       this.fetchdataservice.getData(params).subscribe((res: any) => {
         console.log("centers avilable="+res.centers.length)
         try {
+          this.count = this.count + 1;
           if (res.centers.length > 0) {
             this.resdata = res;
-            this.count = this.count + 1;
+
             //console.log(res);
             //let centerid = resdata.data;
             console.log(this.resdata)
